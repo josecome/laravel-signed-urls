@@ -43,4 +43,28 @@ Route::get('/file/{id}', function (Request $request) {
     */
 })->name('file');
 
+Route::get('/download_book', function () {
+    return URL::temporarySignedRoute(
+        'book', now()->addMinutes(30), ['id' => 1]
+    );
+});
+
+Route::get('/download_video', function () {
+    return URL::temporarySignedRoute(
+        'video', now()->addMinutes(30), ['id' => 1]
+    );
+});
+
+
+//Also is possible to use middleware to validate
+Route::post('/book/{id}', function (Request $request) {
+    return "Good Book";
+})->name('book')->middleware('signed');
+
+//If your signed URLs do not include the domain in the URL hash,
+//you should provide the relative argument to the middleware:
+Route::post('/video/{id}', function (Request $request) {
+    return "Good Video";
+})->name('video')->middleware('signed:relative');
+
 
