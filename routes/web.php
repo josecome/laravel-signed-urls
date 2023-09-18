@@ -33,6 +33,14 @@ Route::get('/file/{id}', function (Request $request) {
         abort(401);
     }
     return "Good";
+
+    //If you need to add parameters, you can ignore in validation.
+    //But this parameter can be changed
+    /*
+      if (! $request->hasValidSignatureWhileIgnoring(['year'])) {
+        abort(401);
+      }
+    */
 })->name('file');
 
 
